@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="my-canvas" height="700px" width="1500px" style="border: 1px solid black;">
+
+    </canvas>
+
+
+    <script>
+        window.onload = function() {
+            var canvas = document.getElementById("my-canvas");
+            var context = canvas.getContext("2d");
+
+            var ballX = 400;
+            var ballY = 300;
+            var ballRadius = 30;
+            var ballColor = 'orange';
+
+
+
+            function drawBall(x, y, radius, color) {
+                var radian = Math.PI / 180;
+
+                context.beginPath();
+                context.strokeStyle = color;
+                context.fillStyle = color;
+                context.arc(x, y, radius, 0, 360 * radian, false);
+                context.stroke();
+                context.fill();
+            }
+
+            window.requestAnimationFrame(move);
+
+            function move() {
+                context.clearRect(0, 0, 1500, 700);
+                ballX += 1;
+                drawBall(ballX, ballY, ballRadius, ballColor);
+
+                window.requestAnimationFrame(move);
+            }
+
+
+            window.requestAnimationFrame = (function() {
+                return window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    window.msRequestAnimationFrame ||
+                    function(callback) {
+                        window.setTimeout(callback, 1000 / 60);
+                    };
+            })();
+
+        };
+    </script>
+</body>
+
+</html>
